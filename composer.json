@@ -1,0 +1,22 @@
+{
+    "name": "sicet7/php-container-base",
+    "description": "PSR-11 container base",
+    "type": "library",
+    "require": {
+        "php": ">=8.2",
+        "php-di/php-di": "^7.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sicet7\\Container\\Base\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Martin René Sørensen",
+            "email": "git@sicet7.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
