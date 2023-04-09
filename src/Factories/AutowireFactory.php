@@ -1,6 +1,6 @@
 <?php
 
-namespace Sicet7\Container\Base\Factories;
+namespace Sicet7\Plugin\Container\Factories;
 
 use DI\DependencyException;
 use Invoker\ParameterResolver\ParameterResolver;

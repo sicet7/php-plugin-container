@@ -1,6 +1,6 @@
 <?php
 
-namespace Sicet7\Container\Base;
+namespace Sicet7\Plugin\Container;
 
 use DI\Container;
 use DI\ContainerBuilder as DIContainerBuilder;
@@ -12,8 +12,8 @@ use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Invoker\ParameterResolver\DefaultValueResolver;
 use Invoker\ParameterResolver\ResolverChain;
 use Psr\Container\ContainerInterface;
-use Sicet7\Container\Base\Factories\AutowireFactory;
-use Sicet7\Container\Base\Interfaces\PluginInterface;
+use Sicet7\Plugin\Container\Factories\AutowireFactory;
+use Sicet7\Plugin\Container\Interfaces\PluginInterface;
 
 class ContainerBuilder
 {

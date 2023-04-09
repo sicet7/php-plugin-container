@@ -9,7 +9,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Sicet7\\Container\\Base\\": "src/"
+            "Sicet7\\Plugin\\Container\\": "src/"
         }
     },
     "authors": [

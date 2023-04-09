@@ -1,6 +1,6 @@
 <?php
 
-namespace Sicet7\Container\Base\Interfaces;
+namespace Sicet7\Plugin\Container\Interfaces;
 
 use DI\Definition\Source\MutableDefinitionSource;
 
