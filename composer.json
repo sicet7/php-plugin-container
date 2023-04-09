@@ -1,5 +1,5 @@
 {
-    "name": "sicet7/php-container-base",
+    "name": "sicet7/php-plugin-container",
     "description": "PSR-11 container base",
     "type": "library",
     "require": {
