@@ -2,9 +2,9 @@
 
 namespace Sicet7\Plugin\Container\Interfaces;
 
-use DI\Definition\Source\MutableDefinitionSource;
+use Sicet7\Plugin\Container\MutableDefinitionSourceHelper;
 
 interface PluginInterface
 {
-    public function register(MutableDefinitionSource $source): void;
+    public function register(MutableDefinitionSourceHelper $source): void;
 }

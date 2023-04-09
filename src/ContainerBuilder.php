@@ -4,9 +4,7 @@ namespace Sicet7\Plugin\Container;
 
 use DI\Container;
 use DI\ContainerBuilder as DIContainerBuilder;
-use DI\Definition\FactoryDefinition;
 use DI\Definition\Source\DefinitionArray;
-use DI\Definition\Source\MutableDefinitionSource;
 use Invoker\ParameterResolver\AssociativeArrayResolver;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Invoker\ParameterResolver\DefaultValueResolver;
@@ -15,7 +13,7 @@ use Psr\Container\ContainerInterface;
 use Sicet7\Plugin\Container\Factories\AutowireFactory;
 use Sicet7\Plugin\Container\Interfaces\PluginInterface;
 
-class ContainerBuilder
+class ContainerBuilder implements PluginInterface
 {
     public const CONTAINER_CLASS = Container::class;
 
@@ -37,25 +35,16 @@ class ContainerBuilder
     final public static function build(ContainerInterface $parentContainer = null): ContainerInterface
     {
         if (!self::$autowireFactoryRegistration) {
-            self::register(new class(new self()) implements PluginInterface {
-                public function __construct(private readonly ContainerBuilder $builder)
-                {
-                }
-
-                public function register(MutableDefinitionSource $source): void
-                {
-                    $source->addDefinition($this->builder->getAutowireFactoryDefinition());
-                }
-            });
+            self::load(new self());
             self::$autowireFactoryRegistration = true;
         }
 
         $builder = new DIContainerBuilder(self::CONTAINER_CLASS);
-        $definitions = new DefinitionArray();
+        $definitions = new MutableDefinitionSourceHelper(new DefinitionArray());
         foreach (self::$plugins as $plugin) {
             $plugin->register($definitions);
         }
-        $builder->addDefinitions($definitions);
+        $builder->addDefinitions($definitions->source);
         $builder->useAttributes(false);
         $builder->useAutowiring(false);
         if ($parentContainer instanceof ContainerInterface) {
@@ -68,7 +57,7 @@ class ContainerBuilder
      * @param PluginInterface $plugin
      * @return void
      */
-    final public static function register(PluginInterface $plugin): void
+    final public static function load(PluginInterface $plugin): void
     {
         self::$plugins[] = $plugin;
     }
@@ -78,11 +67,12 @@ class ContainerBuilder
     }
 
     /**
-     * @return FactoryDefinition
+     * @param MutableDefinitionSourceHelper $source
+     * @return void
      */
-    final public function getAutowireFactoryDefinition(): FactoryDefinition
+    public function register(MutableDefinitionSourceHelper $source): void
     {
-        return new FactoryDefinition(
+        $source->factory(
             AutowireFactory::class,
             function(ContainerInterface $container): AutowireFactory {
                 return new AutowireFactory(new ResolverChain([
