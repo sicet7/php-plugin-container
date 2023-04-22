@@ -142,24 +142,6 @@ final readonly class MutableDefinitionSourceHelper
 
     /**
      * @param string $name
-     * @param object $obj
-     * @return InstanceDefinition
-     */
-    public function instance(
-        string $name,
-        object $obj
-    ): InstanceDefinition {
-        $def = new InstanceDefinition(
-            $obj,
-            new ObjectDefinition($name, get_class($obj))
-        );
-        $def->setName($name);
-        $this->source->addDefinition($def);
-        return $def;
-    }
-
-    /**
-     * @param string $name
      * @param string $variableName
      * @param mixed|null $defaultValue
      * @return EnvironmentVariableDefinition
